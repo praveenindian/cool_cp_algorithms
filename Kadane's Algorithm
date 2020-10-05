@@ -1,0 +1,43 @@
+//OVERVIEW
+
+//This algorithm is used to find the subarray which has the maximum sum in the given array 
+//If the array has only positive elements then answer is always the array itself but what if the array contains some negative elements.
+
+//IMPLEMENTATION C++
+
+//Author:PRAVEEN KUMAR(praveenawesome)
+#include<bits/stdc++.h>
+#define mod 1e9+7
+using namespace std;
+
+int main(){
+
+	int n;     //Length of the array
+ 	cin >> n;
+
+	std :: vector <int> v;
+
+	int max_value = -mod;    //Initialising maximum value of subarray to very high negative value
+
+	int temp_value=0;      //Initialising value for a temporary subarray  
+
+	for(int i = 0 ; i < n ; ++i){
+		
+	    int c;
+		cin >> c;
+
+		v.emplace_back(c);
+	}
+
+	for(int i = 0 ; i < n ; ++i ){
+
+		temp_value = max(temp_value + v[i] , v[i]);   //checking whether adding the current element to temporary subarray is beneficial or the current element has 
+
+		if(temp_value > max_value)
+			max_value = temp_value;
+	}
+
+	cout << "The value of the maximum sum of Subarray in the given array is : "<< max_value << endl;
+
+}
+
