@@ -1,0 +1,115 @@
+//IMPLEMENTATION OF WAYS TO REPRESENT A GRAPH
+//1.ADJACENCY LIST
+//2.ADJACENCY MATRIX
+//3.EDGE LIST
+
+//IMPORTANT : COMMENTS NEED LITTLE BIT CLARITY SO PLEASE DONT READ IF U ARE A JUST BEGENNING  
+
+//Author : PRAVEEN KUMAR(@praveenawesome)
+
+//CODE
+
+#include<bits/stdc++.h>
+using namespace std;
+int n; //Number of nodes in the vector
+
+void adj_list( std :: vector < pair < int , int >  > v , int n){
+	
+	//storing graph in Adjacency list format
+	std::vector< int > list[n];
+	for( auto x : v){
+
+		list[x.first].push_back(x.second);	//An undirected edge consists of two pairs of vertices from first to second and second to first 
+		list[x.second].push_back(x.first);
+	
+	}
+
+	// Printing the graph
+	cout<<"The graph in the adjacency list representation looks like : "; 
+	for(int i = 0 ; i < n ; ++i ){
+
+		cout<< "Node "<<i<<" is adjacent to nodes : ";
+		for(auto x : list[i] ){
+
+			cout<<x<< " ";
+
+		}
+		cout<<" \n";
+
+	}
+}
+
+void adj_matrix( std :: vector < pair < int , int >  > v , int n){
+
+	int matrix[n][n]; //if there is an edge between two vertices then its corresponding row,column is set to 1
+	memset(matrix,0,sizeof(matrix)); //initialize the matrix
+
+	for( auto x : v){
+
+		matrix[x.first][x.second]=1;//An undirected edge consists of two pairs of vertices from first to second and second to first 
+		matrix[x.second][x.first]=1;
+		
+	}
+
+	//output the graph in matrix format
+	cout<<"The graph in the adjacency matrix representation looks like :\n"; 
+	for(int i = 0; i < n ; ++i ){
+		cout << " " ;
+		for(int  j  = 0 ; j < n ; ++j){
+
+			cout << matrix[i][j]<<" ";
+		}
+		cout<<"\n";
+	}
+
+}
+void edge_list( std :: vector < pair < int , int >  > v , int n){
+	//Given input is already in edge list format 
+
+	cout<<"THe graph in the edge list representation looks like : \n";
+	cout<<"List of edges : \n";
+	for(auto x : v){
+
+		cout<<x.first<<" "<<x.second<<"\n";
+
+	}
+}
+int main(){
+
+	cout<<"Enter the number of nodes in the graph : ";
+	cin >> n;
+
+	int m;
+	cout << "Enter number of edges in graph";
+	cin >> m;
+
+	//Node start from 0
+	std:: vector < pair < int , int > > v; //Storing the incoming edges
+	cout << "Enter the edges of the graph : ";
+
+	while(m--){
+
+		int c,d;
+		cin >> c >> d;
+		v.emplace_back(c,d);
+
+	}
+
+	//select from the given representation for the inputted graph 
+	int t;
+	cout << "\nSelect from below :\n 1.ADJACENCY LIST \n 2.ADJACENCY MATRIX \n 3.EDGE LIST\n\n";
+	cin >> t;
+
+	switch(t){
+
+		case 1 : adj_list(v,n);
+		break;
+
+		case 2: adj_matrix(v,n);
+		break;
+
+		case 3:edge_list(v,n);
+		break;
+	}
+
+}
