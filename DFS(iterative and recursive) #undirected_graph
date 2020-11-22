@@ -1,0 +1,82 @@
+//DEPTH-FIRST SEARCH
+//IMPLEMENTED ON UNDIRECTED GRAPH USING ADJACENCY LIST REPRESENTATION ( RECURSIVE AND ITERATIVE APPROACH )
+
+//Author : PRAVEEN KUMAR
+
+//CODE
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int n;
+
+void dfs_iterative(int curr_node , std :: vector< int > v[] , bool visited[]){
+
+	stack < int > s;	//to store the adjacent unvisited nodes of the current node
+	s.push( curr_node );
+
+	while(!s.empty()){
+
+		if(visited[s.top()]){ //if the node is already visited then pop and continue
+			s.pop();
+			continue;
+		}
+		visited[ s.top() ] = 1;	//if node is unvisited the print it 
+		cout<<s.top()<<" ";
+		
+		for(auto x : v[ s.top() ] ){  //store any adjacent unvisited node of the current node being processed 
+
+			if( !visited[ x ] ){
+				s.push(x);
+			}
+		}
+	}	
+}
+
+void dfs_recursive(int curr_node , std :: vector < int > v[] ,bool visited[] ){
+	
+	if( visited[ curr_node ] )	//if the current node is visited 
+		return;
+
+	visited[ curr_node ]=1;	//if the current node is unvisited 
+	cout<< curr_node<<" ";
+	for(auto x : v[ curr_node ]){ //after visiting the current unvisited node do dfs on its adjacent unvisited nodes  
+
+		if(!visited[x])
+			dfs_recursive(x , v, visited );
+
+	}
+}
+int main(){
+	cout << "Enter the number of nodes in the graph"; //Enter the number of nodes in the input graph
+	cin >> n ;
+	
+	int m;
+	cout<<"Enter the number of edges in the given graph";	//Enter the number of edges in the input graph 
+	cin >> m;
+
+	std :: vector < int > v[n];
+	cout<<"Enter the edges";	//input the graph as list of edges 
+	while(m--){
+		int c,d;
+		cin>>c>>d;
+		v[c].emplace_back(d);
+		v[d].emplace_back(c);
+	}
+
+	bool visited[n];
+	memset(visited,0,sizeof(visited)); //set the boolean array to false 
+
+	int t;
+	cout<<"Select one of the following option : \n 1.Iterative \n 2.Recursive \n";
+	cin>>t;
+
+	switch(t){  //select from two options 
+		case 1:cout<<"The nodes obtained after Iterative DFS are : ";
+			   dfs_iterative( 0 , v , visited);
+		break;
+		case 2:cout<<"The nodes obtained after Recursive DFS are : ";
+			   dfs_recursive(0 , v , visited);
+		break;
+	}
+}
